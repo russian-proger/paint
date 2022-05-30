@@ -2,8 +2,11 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 
+#include <set>
+#include <string>
 
 class GTWindow {
+
 protected:
     virtual void OnMouseClick();
     virtual void OnMouseMove();
@@ -22,14 +25,45 @@ private:
     
     Atom wm_delete_window_;
 
+    GC GetDefaultGC();
+
 public:
      GTWindow();
     ~GTWindow();
 
-    void Clear();
     bool Init();
-    bool IsClosed();
+    void Clear();
     void Update();
+    
+    bool IsClosed();
+};
 
-    GC GetDefaultGC();
+struct GTMouseEvent {
+
+};
+
+struct GTEvent {
+
+};
+
+class GTObject {
+    int z_index;
+    std::string name;
+
+public:
+    void Render();
+
+    bool operator()(const GTObject *other);
+};
+
+class GTObjectManager {
+
+private:
+    std::set<GTObject*, GTObject> gt_objects_;
+
+public:
+    GTObjectManager();
+    ~GTObjectManager();
+
+    void Add();
 };

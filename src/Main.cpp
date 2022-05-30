@@ -3,7 +3,6 @@
 MainWindow::MainWindow() {}
 MainWindow::~MainWindow() {}
 void MainWindow::OnMouseClick() {
-
 }
 
 
@@ -12,7 +11,7 @@ MainActivity::MainActivity() {
 }
 
 MainActivity::~MainActivity() {
-    // delete window;
+    delete window;
 }
 
 void MainActivity::Start() {
@@ -20,7 +19,6 @@ void MainActivity::Start() {
         std::cout << "Cannot open display";
         return;
     }
-
 
     while (!window->IsClosed()) {
         window->Update();

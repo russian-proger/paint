@@ -13,7 +13,7 @@ public:
 
 class MainActivity {
 private:
-    MainWindow* window;
+    GTWindow* window;
 public:
     MainActivity();
     ~MainActivity();
