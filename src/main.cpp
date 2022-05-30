@@ -5,5 +5,6 @@
 int main() {
     MainActivity *act = new MainActivity();
     act->Start();
+    
     return 0;
 }
