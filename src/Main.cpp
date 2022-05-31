@@ -20,6 +20,9 @@ void MainActivity::Start() {
         return;
     }
 
+    GTButton* button = new GTButton();
+    window->AppendObject(button);
+
     while (!window->IsClosed()) {
         window->Update();
     }

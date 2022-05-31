@@ -9,14 +9,18 @@
 
 #include "EventSystem.h"
 
+struct GTPoint {
+    int x, y;
+};
 
 // GTObject
 class GTObject : IEventListener {
 private:
-    std::string          name_;
-    std::list<GTObject*> children_;
-    GTObject*            parent_;
-    bool                 visible_;
+    std::string             name_;
+    std::list<GTObject*>    children_;
+    GTObject*               parent_;
+    bool                    visible_;
+    GTPoint                 point_;
 
 public:
     GTObject();
@@ -26,14 +30,21 @@ public:
     // Getters
     std::string GetName();
     GTObject*   GetParent();
+    GTPoint     GetPosition();
+    int         GetX();
+    int         GetY();
 
     // Methods
+    void SetX(const int x);
+    void SetY(const int y);
+    void SetPosition(const int x, const int y);
+    void SetPosition(const GTPoint pos);
     void AppendObject(GTObject* obj);
     void RemoveObject(GTObject* obj);
 };
 
 // GTWindow
-class GTWindow : GTObject {
+class GTWindow : public GTObject {
 
 private:
     bool closed_;
@@ -61,9 +72,11 @@ public:
 };
 
 // GTButton
-class GTButton : GTObject {
+class GTButton : public GTObject {
 private:
     std::string name;
+    int width;
+    int height;
 
 public:
     GTButton();

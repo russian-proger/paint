@@ -7,6 +7,7 @@
 
 GTObject::GTObject() {
     this->visible_ = true;
+    this->point_ = {0, 0};
 }
 
 GTObject::~GTObject() {}
@@ -18,6 +19,32 @@ std::string GTObject::GetName() {
 GTObject* GTObject::GetParent() {
     return this->parent_;
 }
+
+int GTObject::GetX() {
+    return this->point_.x;
+}
+
+int GTObject::GetY() {
+    return this->point_.x;
+}
+
+GTPoint GTObject::GetPosition() {
+    return this->point_;
+}
+
+void GTObject::SetX(const int x) {
+    this->point_.x = x;
+}
+
+void GTObject::SetY(const int y) {
+    this->point_.y = y;
+}
+
+void GTObject::SetPosition(const GTPoint pos) {
+    this->point_.x = pos.x;
+    this->point_.y = pos.y;
+}
+
 
 void GTObject::AppendObject(GTObject* obj) {
     children_.push_back(obj);
@@ -115,7 +142,8 @@ void GTWindow::OnMouseClick(MouseEvent ev) {
  * 
  */
 GTButton::GTButton() {
-
+    width = 60;
+    height = 30;
 }
 
 void GTButton::Render() {

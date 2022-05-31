@@ -15,7 +15,6 @@ enum class MouseButton {
     eWheel
 };
 
-
 struct MouseEvent {
     int
         x,              // Relative position x
