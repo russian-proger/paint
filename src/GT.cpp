@@ -1,5 +1,38 @@
 #include "GT.h"
-#include <iostream>
+
+
+/**
+ * @brief Definition GTWindow
+ */
+
+GTObject::GTObject() {
+    this->visible_ = true;
+}
+
+GTObject::~GTObject() {}
+
+std::string GTObject::GetName() {
+    return this->name_;
+}
+
+GTObject* GTObject::GetParent() {
+    return this->parent_;
+}
+
+void GTObject::AppendObject(GTObject* obj) {
+    children_.push_back(obj);
+}
+
+void GTObject::RemoveObject(GTObject* obj) {
+    std::list<GTObject*>::iterator child;
+    child = std::find(children_.begin(), children_.end(), obj);
+
+    if (child != children_.end()) {
+        children_.push_back(obj);
+    }
+}
+
+void GTObject::Render() {};
 
 /**
  * @brief Definition GTWindow
@@ -55,7 +88,9 @@ void GTWindow::Update() {
     }
 
     if (x_ev_buf_.type == ButtonPress) {
-        this->OnMouseClick();
+        this->OnMouseClick({
+            
+        });
     }
 }
 
@@ -71,10 +106,18 @@ bool GTWindow::IsClosed() {
     return this->closed_;
 }
 
-// Virtual functions
-void GTWindow::OnMouseClick() {}
-void GTWindow::OnMouseMove() {}
-void GTWindow::OnMouseDown() {}
-void GTWindow::OnMouseUp() {}
-void GTWindow::OnKeyPress() {}
-void GTWindow::OnWindowClose() {}
+void GTWindow::OnMouseClick(MouseEvent ev) {
+    std::cout << "Mouse clicked!" << std::endl;
+}
+
+/**
+ * @brief Definition GTButton
+ * 
+ */
+GTButton::GTButton() {
+
+}
+
+void GTButton::Render() {
+    
+}

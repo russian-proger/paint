@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.22)
 project(paint)
 
 add_executable(paint
+    src/EventSystem.cpp
     src/GT.cpp
     src/Main.cpp
     src/main.cpp

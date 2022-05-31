@@ -2,18 +2,38 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 
-#include <set>
+#include <algorithm>
+#include <iostream>
+#include <list>
 #include <string>
 
-class GTWindow {
+#include "EventSystem.h"
 
-protected:
-    virtual void OnMouseClick();
-    virtual void OnMouseMove();
-    virtual void OnMouseDown();
-    virtual void OnMouseUp();
-    virtual void OnKeyPress();
-    virtual void OnWindowClose();
+
+// GTObject
+class GTObject : IEventListener {
+private:
+    std::string          name_;
+    std::list<GTObject*> children_;
+    GTObject*            parent_;
+    bool                 visible_;
+
+public:
+    GTObject();
+    ~GTObject();
+    virtual void Render();
+
+    // Getters
+    std::string GetName();
+    GTObject*   GetParent();
+
+    // Methods
+    void AppendObject(GTObject* obj);
+    void RemoveObject(GTObject* obj);
+};
+
+// GTWindow
+class GTWindow : GTObject {
 
 private:
     bool closed_;
@@ -27,6 +47,8 @@ private:
 
     GC GetDefaultGC();
 
+    void OnMouseClick(MouseEvent);
+
 public:
      GTWindow();
     ~GTWindow();
@@ -38,32 +60,12 @@ public:
     bool IsClosed();
 };
 
-struct GTMouseEvent {
-
-};
-
-struct GTEvent {
-
-};
-
-class GTObject {
-    int z_index;
+// GTButton
+class GTButton : GTObject {
+private:
     std::string name;
 
 public:
+    GTButton();
     void Render();
-
-    bool operator()(const GTObject *other);
-};
-
-class GTObjectManager {
-
-private:
-    std::set<GTObject*, GTObject> gt_objects_;
-
-public:
-    GTObjectManager();
-    ~GTObjectManager();
-
-    void Add();
 };
